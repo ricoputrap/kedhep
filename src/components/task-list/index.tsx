@@ -15,8 +15,8 @@ export function TaskList({ tasks, title, onTaskToggle }: TaskListProps) {
   };
 
   return (
-    <div className="card card-border">
-      <div className="card-body">
+    <div className="card card-border border-gray-200">
+      <div className="card-body p-3">
         {title && <h3 className="card-title">{title}</h3>}
 
         <ul className="space-y-2">

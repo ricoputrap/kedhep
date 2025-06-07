@@ -1,11 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Geologica } from "next/font/google";
 import "./globals.css";
-
-const geologica = Geologica({
-  variable: "--font-geologica",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -20,7 +14,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geologica.variable} antialiased bg-white text-gray-900 min-h-screen`}
+        className={` antialiased bg-white text-gray-900 min-h-screen`}
       >
         {children}
       </body>
