@@ -1,7 +1,8 @@
 # 📋 Product Requirements Document (PRD) for KedhepIt - Task Management Application
 
-![alt text](image.png)
+![alt text](wireframe.png)
 
+![alt text](db-schema.png)
 
 ---
 
