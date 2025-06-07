@@ -12,7 +12,6 @@ This app is designed to help knowledge workers on laptops effectively **manage n
 By providing an intuitive sidebar with **task checkboxes**, **statistics**, and **personal reflections**, the app offers a seamless, efficient **workload overview and daily planning experience** tailored for users who want to **streamline task management** and **boost productivity** on a **single screen**.
 
 
-
 ---
 
 ## 2. Features
