@@ -16,6 +16,7 @@ export default function RootLayout({
       <body
         className={`antialiased min-h-screen`}
         data-theme="corporate"
+        suppressHydrationWarning
       >
         {children}
       </body>

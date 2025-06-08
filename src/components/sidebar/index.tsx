@@ -49,9 +49,9 @@ export default function Sidebar() {
   ];
   
   return (
-    <div className="h-screen flex flex-col bg-base-100 w-64 p-4 border-r border-gray-200">
+    <div className="h-screen flex flex-col bg-base-100 w-64 border-r border-gray-200">
       {/* App Logo/Name */}
-      <div className="flex items-center gap-2 px-2 py-4">
+      <div className="flex items-center gap-2 px-4 py-3 border-b border-gray-200">
         <div className="flex items-center justify-center w-8 h-8 bg-primary text-primary-content rounded-sm">
           <span className="font-bold text-sm">K</span>
         </div>
@@ -59,13 +59,13 @@ export default function Sidebar() {
       </div>
       
       {/* Navigation */}
-      <div className="flex-1 py-4">
-        <ul className="menu menu-md rounded-box">
+      <div className="flex-1 py-2 overflow-y-auto">
+        <ul className="menu menu-sm w-full px-2">
           {navItems.map((item) => (
-            <li key={item.href}>
+            <li key={item.href} className="my-0.5">
               <Link 
                 href={item.href} 
-                className={`flex items-center gap-3 ${pathname.startsWith(item.href) ? "active bg-base-200 font-medium" : ""}`}
+                className={`flex items-center gap-3 py-2 ${pathname.startsWith(item.href) ? "active bg-base-200 font-medium" : ""}`}
               >
                 {item.icon}
                 {item.label}
@@ -76,9 +76,9 @@ export default function Sidebar() {
       </div>
       
       {/* User Profile */}
-      <div className="border-t border-gray-200 pt-4">
+      <div className="border-t border-gray-200">
         <div className="dropdown dropdown-top w-full">
-          <div tabIndex={0} role="button" className="flex items-center gap-3 px-2 py-2 w-full hover:bg-base-200 rounded-lg">
+          <div tabIndex={0} role="button" className="flex items-center gap-3 px-4 py-3 w-full hover:bg-base-200">
             <div className="avatar placeholder">
               <div className="bg-neutral text-neutral-content rounded-sm w-8 h-8 flex items-center justify-center">
                 <span className="text-xs font-medium">RP</span>
