@@ -22,7 +22,7 @@ export default function Home() {
 
       <button className="btn btn-primary">Button</button>
 
-      <div className="w-full p-5 grid grid-cols-1 2xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 gap-6">
+      <div className="w-full p-5 grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-6">
         <TaskList
           tasks={tasks}
           onTaskToggle={handleTaskToggle}
