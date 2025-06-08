@@ -10,20 +10,26 @@ interface TaskListProps {
 }
 
 export function TaskList({ tasks, title, onTaskToggle }: TaskListProps) {
+  const [localTasks, setLocalTasks] = React.useState<Task[]>(tasks);
+
   const handleToggle = (taskId: number, currentStatus: boolean) => {
+    const updatedTasks = localTasks.map((task) =>
+      task.id === taskId ? { ...task, completed: !currentStatus } : task
+    );
+    setLocalTasks(updatedTasks);
     onTaskToggle(taskId, !currentStatus);
   };
 
   return (
-    <div className="card card-border border-gray-200">
+    <div className="card card-border">
       <div className="card-body p-3">
         {title && <h3 className="card-title">{title}</h3>}
 
         <ul className="space-y-2">
-          {tasks.length === 0 ? (
+          {localTasks.length === 0 ? (
             <li className="text-gray-400 text-sm">No tasks available</li>
           ) : (
-            tasks.map((task) => (
+            localTasks.map((task) => (
               <li key={task.id} className="flex items-center gap-2 p-2 rounded hover:bg-gray-100">
                 <input
                   type="checkbox"
