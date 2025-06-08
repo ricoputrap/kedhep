@@ -6,10 +6,9 @@ import type { Task } from '../../data/schema';
 interface TaskListProps {
   tasks: Task[];
   title?: string;
-  onTaskToggle: (taskId: number, completed: boolean) => void;
 }
 
-export function TaskList({ tasks, title, onTaskToggle }: TaskListProps) {
+export function TaskList({ tasks, title }: TaskListProps) {
   const [localTasks, setLocalTasks] = React.useState<Task[]>(tasks);
 
   const handleToggle = (taskId: number, currentStatus: boolean) => {
@@ -17,7 +16,6 @@ export function TaskList({ tasks, title, onTaskToggle }: TaskListProps) {
       task.id === taskId ? { ...task, completed: !currentStatus } : task
     );
     setLocalTasks(updatedTasks);
-    onTaskToggle(taskId, !currentStatus);
   };
 
   return (
