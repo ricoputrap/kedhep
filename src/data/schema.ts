@@ -6,6 +6,7 @@ export interface User {
   id: number;          // PK
   name: string;
   email: string;
+  title?: string;      // Optional title or role
   oauth_provider: EnumOAuthProvider;
   oauth_id: string;     // Unique ID from the OAuth provider
   avatar_url?: string;  // Optional URL to the user's profile picture
