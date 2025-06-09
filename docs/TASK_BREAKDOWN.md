@@ -33,7 +33,7 @@ This document breaks down the main tasks required to design and implement the Ke
     - [ ] Redirect to login page
 
 ### 3. Task List (Card)
-- [ ] `UI`: Show all task items (with checkbox) in the list as a card
+- [x] `UI`: Show all task items (with checkbox) in the list as a card
 - [ ] `Action`: Toggle completion of a task item
 - [ ] `UI`: Show the associated tags as chips on the card footer
 - [ ] `UI`: Show a popup menu when the user clicks on the three dots in the top right corner of the task list card
@@ -41,8 +41,8 @@ This document breaks down the main tasks required to design and implement the Ke
   - [ ] `Action`: Delete - remove the task list
 
 ### 4. Tasks Grid
-- [ ] `UI`: Show all task lists as cards
-- [ ] `Action`: Get All Tasks (including the task items and tags in each task list)
+- [x] `UI`: Show all task lists as cards
+- [x] `Action`: Get All Tasks (including the task items and tags in each task list)
 - [ ] `UI`: Show all tags as chips above the grid
 - [ ] `Action`: Filter tasks by tag
 - [ ] `UI`: Show search input to search task lists by title

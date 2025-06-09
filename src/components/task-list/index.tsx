@@ -2,6 +2,8 @@ import React from 'react';
 import TaskItems from './task-items';
 import { ITaskItem } from '@/server/tasks';
 
+export { default as TaskListSkeleton } from './skeleton';
+
 interface TaskListProps {
   id: number;
   tasks: ITaskItem[];
