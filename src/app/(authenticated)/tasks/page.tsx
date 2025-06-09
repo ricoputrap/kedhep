@@ -12,6 +12,7 @@ export default async function TasksPage() {
       {tasks.map((taskList) => (
         <TaskList
           key={taskList.id}
+          id={taskList.id}
           tasks={taskList.tasks}
           title={taskList.title}
         />
