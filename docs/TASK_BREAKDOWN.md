@@ -20,7 +20,7 @@ This document breaks down the main tasks required to design and implement the Ke
 - [ ] Setup monitoring (e.g., Prometheus, Grafana)
 
 ### 2. Sidebar
-- [x] Show sidebar component
+- [x] Show nav menu items in the sidebar
 - [ ] Enable show/hide sidebar functionality
 - [x] Implement navigation to all pages
 - [x] Show user profile in the bottom section
