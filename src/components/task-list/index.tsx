@@ -1,67 +1,23 @@
-'use client';
-
 import React from 'react';
-import type { Task } from '../../data/schema';
+import TaskItems from './task-items';
+import { ITaskItem } from '@/server/tasks';
 
 interface TaskListProps {
-  tasks: Task[];
+  tasks: ITaskItem[];
   title?: string;
 }
 
 export function TaskList({ tasks, title }: TaskListProps) {
-  const [localTasks, setLocalTasks] = React.useState<Task[]>(tasks);
-
-  const handleToggle = (taskId: number, currentStatus: boolean) => {
-    const updatedTasks = localTasks.map((task) =>
-      task.id === taskId ? { ...task, completed: !currentStatus } : task
-    );
-    setLocalTasks(updatedTasks);
-  };
 
   return (
     <div className="card card-border">
       <div className="card-body p-3">
         {title && <h3 className="card-title">{title}</h3>}
 
-        <ul className="space-y-2">
-          {localTasks.length === 0 ? (
-            <li className="text-gray-400 text-sm">No tasks available</li>
-          ) : (
-            localTasks.map((task) => (
-              <li key={task.id} className="flex items-center gap-2 p-2 rounded hover:bg-gray-100">
-                <input
-                  type="checkbox"
-                  checked={task.completed}
-                  onChange={() => handleToggle(task.id, task.completed)}
-                  className="checkbox checkbox-sm"
-                  aria-label={`Mark "${task.title}" as ${task.completed ? 'incomplete' : 'complete'}`}
-                />
-                <span className={`flex-1 ${task.completed ? 'line-through text-gray-400' : ''}`}>
-                  {task.title}
-                </span>
-              </li>
-            ))
-          )}
-        </ul>
+        <TaskItems
+          tasks={tasks.map(({ id, title, completed }) => ({ id, title, completed }))}
+        />
       </div>
     </div>
   );
 }
-
-// Example of how to use this component:
-// 
-// const tasks = [
-//   { id: 1, title: 'Membersihkan gudang', completed: false, task_list_id: 1, user_id: 1, created_at: Date.now(), updated_at: Date.now() },
-//   { id: 2, title: 'Mengambil laundry', completed: true, task_list_id: 1, user_id: 1, created_at: Date.now(), updated_at: Date.now() },
-// ];
-//
-// function handleTaskToggle(taskId: number, completed: boolean) {
-//   console.log(`Task ${taskId} toggled to ${completed}`);
-//   // Update your state or send to API here
-// }
-// 
-// <TaskList
-//   tasks={tasks}
-//   onTaskToggle={handleTaskToggle}
-//   title="Rumah"
-// />

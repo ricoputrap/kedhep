@@ -1,48 +1,21 @@
 import React from 'react'
 
 import { TaskList } from "@/components/task-list";
-import { Task } from "@/data/schema";
+import { ITaskList, getTasks } from '@/server/tasks';
 
-const tasks: Task[] = [
-  { id: 1, title: 'Membersihkan gudang', completed: false, task_list_id: 1, user_id: 1, created_at: Date.now(), updated_at: Date.now() },
-  { id: 2, title: 'Mengambil laundry', completed: true, task_list_id: 1, user_id: 1, created_at: Date.now(), updated_at: Date.now() },
-];
 
-export default function TasksPage() {
+export default async function TasksPage() {
+  const tasks: ITaskList[] = await getTasks(1);
+
   return (
     <section id="tasks-page" className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-6">
-      <TaskList
-        tasks={tasks}
-        title="Rumah"
-      />
-      <TaskList
-        tasks={[]}
-        title="Finance"
-      />
-      <TaskList
-        tasks={[]}
-        title="Kedhep"
-      />
-      <TaskList
-        tasks={[]}
-        title="SARA"
-      />
-      <TaskList
-        tasks={tasks}
-        title="Rumah"
-      />
-      <TaskList
-        tasks={[]}
-        title="Finance"
-      />
-      <TaskList
-        tasks={[]}
-        title="Kedhep"
-      />
-      <TaskList
-        tasks={[]}
-        title="SARA"
-      />
+      {tasks.map((taskList) => (
+        <TaskList
+          key={taskList.id}
+          tasks={taskList.tasks}
+          title={taskList.title}
+        />
+      ))}
     </section>
   )
 }
