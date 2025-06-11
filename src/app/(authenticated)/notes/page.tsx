@@ -1,6 +1,9 @@
 import React from 'react'
 
-export default function NotesPage() {
+export default async function NotesPage() {
+  // simulate loading for 1 second
+  await new Promise(resolve => setTimeout(resolve, 1000));
+
   return (
     <section id="notes-page" className="flex flex-col items-center justify-center min-h-[80vh] p-8">
       <div className="text-center max-w-md">

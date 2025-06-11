@@ -18,8 +18,8 @@ export interface ITaskList {
 export async function getTasks(userId: number): Promise<ITaskList[]> {
   console.log("Fetching tasks for user:", userId);
 
-  // Simulate loading for 3 second
-  await new Promise(resolve => setTimeout(resolve, 3000));
+  // Simulate loading for 1 second
+  await new Promise(resolve => setTimeout(resolve, 1000));
 
   const taskLists: ITaskList[] = TASK_LISTS.reduce((allTaskLists: ITaskList[], list) => {
     if (list.user_id === userId) {
