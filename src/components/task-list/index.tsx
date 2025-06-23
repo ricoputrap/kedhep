@@ -11,14 +11,13 @@ interface TaskListProps {
 }
 
 export function TaskList({ id, tasks, title }: TaskListProps) {
+  const taskItems = tasks.map(({ id, title, completed }) => ({ id, title, completed }));
+
   return (
     <div className="card card-border" id={`task-list-${id}`}>
       <div className="card-body p-3">
         {title && <h3 className="card-title">{title}</h3>}
-
-        <TaskItems
-          tasks={tasks.map(({ id, title, completed }) => ({ id, title, completed }))}
-        />
+        <TaskItems tasks={taskItems} />
       </div>
     </div>
   );

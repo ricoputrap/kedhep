@@ -1,6 +1,7 @@
 "use client";
 
 import { Task } from '@/data/schema';
+import { updateTaskCompletion } from '@/server/tasks';
 import React from 'react'
 
 interface Props {
@@ -8,12 +9,9 @@ interface Props {
 }
 
 export default function TaskItems({ tasks }: Props) {
-  const onToggle = (taskId: number, currentStatus: boolean) => {
-    const updatedTasks = tasks.map((task) =>
-      task.id === taskId ? { ...task, completed: !currentStatus } : task
-    );
-    // Here you would typically update the state or send the updated tasks to an API
-    console.log('Updated Tasks:', updatedTasks);
+
+  const onToggle = async (taskId: number, newStatus: boolean) => {
+    await updateTaskCompletion(taskId, newStatus);
   };
 
   return (
@@ -26,7 +24,7 @@ export default function TaskItems({ tasks }: Props) {
             <input
               type="checkbox"
               checked={task.completed}
-              onChange={() => onToggle(task.id, task.completed)}
+              onChange={() => onToggle(task.id, !task.completed)}
               className="checkbox checkbox-sm"
               aria-label={`Mark "${task.title}" as ${task.completed ? 'incomplete' : 'complete'}`}
             />
