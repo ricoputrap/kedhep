@@ -51,7 +51,9 @@ export async function updateTaskCompletion(taskItemId: number, isCompleted: bool
     TASK_ITEMS[taskIndex].completed = isCompleted;
   }
   else {
-    console.error(`Task with id ${taskItemId} not found`);
+    const errorMessage = `Task with id ${taskItemId} not found`;
+    console.error(errorMessage);
+    throw new Error(errorMessage);
   }
 
   revalidatePath('/tasks');
