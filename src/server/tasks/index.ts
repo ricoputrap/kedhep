@@ -1,7 +1,8 @@
 "use server"
 
-import { revalidatePath } from "next/cache";
 import { TASK_ITEMS, TASK_LISTS } from "@/data/dummy";
+import { delay } from "@/lib/utils";
+import { revalidatePath } from "next/cache";
 
 export interface ITaskItem {
   id: number,
@@ -17,10 +18,8 @@ export interface ITaskList {
 }
 
 export async function getTasks(userId: number): Promise<ITaskList[]> {
-  console.log("Fetching tasks for user:", userId);
-
-  // Simulate loading for 1 second
-  await new Promise(resolve => setTimeout(resolve, 1000));
+  // Simulate loading for 500 ms
+  await delay(500);
 
   const taskLists: ITaskList[] = TASK_LISTS.reduce((allTaskLists: ITaskList[], list) => {
     if (list.user_id === userId) {
@@ -46,17 +45,12 @@ export async function getTasks(userId: number): Promise<ITaskList[]> {
   return taskLists;
 }
 
-export async function updateTaskCompletion(taskItemId: number, isCompleted: boolean): Promise<void> {
-  console.log(`Updating task ${taskItemId} to ${isCompleted ? 'completed' : 'incomplete'}`);
-
-  // Simulate loading for 1 second
-  await new Promise(resolve => setTimeout(resolve, 1000));
-
+export async function updateTaskCompletion(taskItemId: number, isCompleted: boolean) {
   const taskIndex = TASK_ITEMS.findIndex(item => item.id === taskItemId);
   if (taskIndex !== -1) {
     TASK_ITEMS[taskIndex].completed = isCompleted;
-    console.log(`Task updated:`, TASK_ITEMS[taskIndex]);
-  } else {
+  }
+  else {
     console.error(`Task with id ${taskItemId} not found`);
   }
 

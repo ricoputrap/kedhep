@@ -1,22 +1,21 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 
-import { TaskList } from "@/components/task-list";
-import { ITaskList, getTasks } from '@/server/tasks';
+import { TaskListSkeleton } from "@/components/task-list";
+import TaskListContainer from '@/components/task-list-container';
 
 
-export default async function TasksPage() {
-  const tasks: ITaskList[] = await getTasks(1);
-
+export default function TasksPage() {
   return (
     <section id="tasks-page" className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-6">
-      {tasks.map((taskList) => (
-        <TaskList
-          key={taskList.id}
-          id={taskList.id}
-          tasks={taskList.tasks}
-          title={taskList.title}
-        />
-      ))}
+      <Suspense fallback={(
+        <>
+          {Array.from({ length: 6 }).map((_, index) => (
+            <TaskListSkeleton key={index} />
+          ))}
+        </>
+      )}>
+        <TaskListContainer />
+      </Suspense>
     </section>
   )
 }
