@@ -16,7 +16,10 @@ export default function TaskItem({ id, title, isCompleted }: Props) {
     console.log("Toggling task:", id, "to", !isCompleted);
     startTransition(async () => {
       try {
-        await updateTaskCompletion(id, !isCompleted);
+        await updateTaskCompletion({
+          id,
+          completed: !isCompleted
+        });
       }
       catch (error) {
         console.error("Failed to update task completion:", error);
