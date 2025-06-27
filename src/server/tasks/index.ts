@@ -3,7 +3,8 @@
 import { TASK_ITEMS, TASK_LISTS } from "@/data/dummy";
 import { delay } from "@/lib/utils";
 import { revalidatePath } from "next/cache";
-import { UpdateTaskCompletionSchema, updateTaskCompletionSchema } from "./schema";
+import { GetTasksSchema, UpdateTaskCompletionSchema, getTasksSchema, updateTaskCompletionSchema } from "./schema";
+import { getCurrentUser } from "../users";
 
 export interface ITaskItem {
   id: number,
@@ -18,32 +19,86 @@ export interface ITaskList {
   tasks: ITaskItem[];
 }
 
-export async function getTasks(userId: number): Promise<ITaskList[]> {
-  // Simulate loading for 500 ms
-  await delay(500);
+interface IGetTasksResponse {
+  data: ITaskList[];
+  error?: string;
+}
 
-  const taskLists: ITaskList[] = TASK_LISTS.reduce((allTaskLists: ITaskList[], list) => {
-    if (list.user_id === userId) {
-      const tasks = TASK_ITEMS.filter(task => task.task_list_id === list.id)
-        .map(task => ({
-          id: task.id,
-          title: task.title,
-          completed: task.completed
-        }));
-      
-      allTaskLists.push({
-        id: list.id,
-        title: list.title,
-        user_id: list.user_id,
-        tasks
-      });
+/**
+ * Fetches task lists for the current user, optionally filtered by a search query.
+ * 
+ * @param body - The request body containing an optional search query
+ * @param body.searchQuery - A string to filter task lists and items by title
+ * 
+ * @returns A promise that resolves to an object containing the task lists or an error message
+ * 
+ * @throws Will return an error object if the user is not found or if validation fails
+ * 
+ * @example
+ * ```typescript
+ * const result = await getTasks({ searchQuery: "urgent" });
+ * if (result.error) {
+ *   console.error(result.error);
+ * } else {
+ *   console.log(result.data);
+ * }
+ * ```
+ */
+export async function getTasks(body: GetTasksSchema): Promise<IGetTasksResponse> {
+  try {
+    const user = await getCurrentUser();
+    if (!user) {
+      return {
+        data: [],
+        error: "User not found"
+      };
     }
-    return allTaskLists;
-  }, []);
 
-  console.log("Fetched task lists:", taskLists);
+    // validate the request body
+    const { searchQuery } = getTasksSchema.parse(body);
 
-  return taskLists;
+    // Simulate loading for 500 ms
+    await delay(500);
+
+    const taskLists: ITaskList[] = TASK_LISTS.reduce((allTaskLists: ITaskList[], list) => {
+      if (list.user_id === user.id) {
+        const tasks = TASK_ITEMS.filter(task => task.task_list_id === list.id)
+          .map(task => ({
+            id: task.id,
+            title: task.title,
+            completed: task.completed
+          }));
+        
+        // Filter by task list title or task item titles
+        const matchesListTitle = !searchQuery || list.title.toLowerCase().includes(searchQuery.toLowerCase());
+        const matchesTaskTitle = !searchQuery || tasks.some(task => task.title.toLowerCase().includes(searchQuery.toLowerCase()));
+        
+        if (matchesListTitle || matchesTaskTitle) {
+          allTaskLists.push({
+            id: list.id,
+            title: list.title,
+            user_id: list.user_id,
+            tasks
+          });
+        }
+      }
+      return allTaskLists;
+    }, []);
+
+    console.log("Fetched task lists:", taskLists);
+
+    return {
+      data: taskLists
+    };
+  }
+  catch (error) {
+    // TODO log error to a monitoring service
+    console.error("Error fetching tasks:", error);
+    return {
+      data: [],
+      error: "Failed to fetch tasks"
+    };
+  }
 }
 
 /**

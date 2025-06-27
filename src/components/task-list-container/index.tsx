@@ -1,9 +1,13 @@
-import { ITaskList, getTasks } from '@/server/tasks';
+import { getTasks } from '@/server/tasks';
 import React from 'react'
 import { TaskList } from '../task-list';
 
-export default async function TaskListContainer() {
-  const tasks: ITaskList[] = await getTasks(1);
+interface Props {
+  searchQuery?: string;
+}
+
+export default async function TaskListContainer({ searchQuery }: Readonly<Props>) {
+  const { data: tasks } = await getTasks({ searchQuery });
 
   return (
     <>
